@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-padding-top: 84px;
+}
+
+body {
+  @apply bg-ink-900 text-mist-100 font-body antialiased;
+  background-image: radial-gradient(
+    ellipse 80% 50% at 50% -10%,
+    rgba(37, 99, 235, 0.12),
+    transparent
+  );
+  background-attachment: fixed;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.25);
+  color: #f8fafc;
+}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0e16;
+}
+::-webkit-scrollbar-thumb {
+  background: #202a3d;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+@layer components {
+  /* Section chrome — the monospace "path" label used across every section  */
+  .path-label {
+    @apply font-mono text-xs tracking-wide text-signal-cyan/80 uppercase;
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-10;
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-white/[0.06] bg-ink-800/70 backdrop-blur-sm shadow-card;
+  }
+
+  .tag-chip {
+    @apply font-mono text-[11px] tracking-wide text-mist-300 bg-white/[0.04] border border-white/[0.08] rounded-md px-2 py-1;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-lg bg-signal-blue px-5 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-signal-blueSoft hover:shadow-lift active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-lg border border-white/15 px-5 py-3 text-sm font-medium text-mist-100 transition-all duration-300 hover:border-signal-cyan/60 hover:text-signal-cyan active:scale-[0.98];
+  }
+
+  .underline-link {
+    @apply relative text-mist-200 transition-colors duration-300 hover:text-white;
+  }
+  .underline-link::after {
+    content: '';
+    @apply absolute left-0 -bottom-1 h-px w-0 bg-signal-cyan transition-all duration-300;
+  }
+  .underline-link:hover::after {
+    @apply w-full;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
