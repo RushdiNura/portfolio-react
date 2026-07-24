@@ -12,7 +12,7 @@ export default function Footer() {
             <span className="text-signal-cyan">&gt;_</span> rushdi.nura
           </p>
           <p className="text-sm text-mist-400 mt-1 font-mono">
-            © 2026 Rushdi Nura — Built with React.
+            © 2026 Rushdi jNura — Built with React.
           </p>
         </div>
 
@@ -27,7 +27,7 @@ export default function Footer() {
             <FiGithub />
           </a>
           <a
-            href="https://www.linkedin.com/in/rushdi-rushdinura-7882a52b4/"
+            href="https://www.linkedin.com/in/reshad-nura-529222424/"
             aria-label="LinkedIn"
             className="text-mist-300 hover:text-signal-cyan transition-colors text-lg"
           >

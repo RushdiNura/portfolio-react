@@ -32,8 +32,8 @@ const contactLinks = [
   {
     icon: FiLinkedin,
     label: "LinkedIn",
-    value: "linkedin.com/in/rushdinura-7882a52b4",
-    href: "https://www.linkedin.com/in/rushdi-rushdinura-7882a52b4/",
+    value: "linkedin.com/in/reshad-nura-529222424",
+    href: "https://www.linkedin.com/in/reshad-nura-529222424/",
   },
   {
     icon: FiMail,
