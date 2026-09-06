@@ -29,12 +29,12 @@ const contactLinks = [
     value: "github.com/RushdiNura",
     href: "https://github.com/RushdiNura",
   },
-  {
-    icon: FiLinkedin,
-    label: "LinkedIn",
-    value: "linkedin.com/in/reshad-nura-529222424",
-    href: "https://www.linkedin.com/in/reshad-nura-529222424/",
-  },
+  // {
+  //   icon: FiLinkedin,
+  //   label: "LinkedIn",
+  //   value: "linkedin.com/in/reshad-nura-529222424",
+  //   href: "https://www.linkedin.com/in/reshad-nura-529222424/",
+  // },
   {
     icon: FiMail,
     label: "Email",

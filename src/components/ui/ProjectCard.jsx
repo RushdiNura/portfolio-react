@@ -133,14 +133,14 @@ export default function ProjectCard({ project, index }) {
           >
             <FiGithub /> Code
           </a>
-          <a
+          {/* <a
             href={project.demo}
             target="_blank"
             rel="noreferrer"
             className="underline-link inline-flex items-center gap-1.5 text-sm"
           >
             <FiExternalLink /> Live demo
-          </a>
+          </a> */}
         </div>
       </div>
     </motion.article>

@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { FiGithub } from 'react-icons/fi'
-import SectionHeading from '../ui/SectionHeading'
-import ProjectCard from '../ui/ProjectCard'
-import { projects } from '../../data/projects'
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { FiGithub } from "react-icons/fi";
+import SectionHeading from "../ui/SectionHeading";
+import ProjectCard from "../ui/ProjectCard";
+import { projects } from "../../data/projects";
 
-const INITIAL_COUNT = 6
+const INITIAL_COUNT = 6;
 
 export default function Projects() {
-  const [showAll, setShowAll] = useState(false)
-  const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_COUNT)
+  const [showAll, setShowAll] = useState(false);
+  const visibleProjects = showAll ? projects : projects.slice(0, INITIAL_COUNT);
 
   return (
     <section id="projects" className="py-28 sm:py-32">
@@ -20,7 +20,12 @@ export default function Projects() {
             title="Featured projects"
             description="A selection of what I've shipped across web and mobile — each one built to solve a real, specific problem."
           />
-          <a href="https://github.com/RushdiNura" target="_blank" rel="noreferrer" className="btn-ghost mb-12">
+          <a
+            href="https://github.com/RushdiNura"
+            target="_blank"
+            rel="noreferrer"
+            className="btn-ghost mb-12"
+          >
             <FiGithub /> All repositories
           </a>
         </div>
@@ -39,7 +44,8 @@ export default function Projects() {
             className="mt-12 text-center"
           >
             <p className="text-mist-400 text-sm mb-4 font-mono">
-              + {projects.length - INITIAL_COUNT} more projects completed and counting
+              + {projects.length - INITIAL_COUNT} more projects completed and
+              counting
             </p>
             <button onClick={() => setShowAll(true)} className="btn-primary">
               Show all projects
@@ -48,5 +54,5 @@ export default function Projects() {
         )}
       </div>
     </section>
-  )
+  );
 }
