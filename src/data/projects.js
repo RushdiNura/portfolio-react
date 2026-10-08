@@ -233,51 +233,51 @@ export const projects = [
     demo: "https://service-portal-frontend.onrender.com",
     featured: false,
   },
-  {
-    id: "addis-home",
-    name: "Addis Home",
-    tagline: "Real estate & housing marketplace",
-    description:
-      "A listings platform for browsing and filtering housing options, designed with a focus on clear search and a fast property browsing experience.",
-    tech: ["React", "CSS"],
-    github: "https://github.com/RushdiNura/Addis-home-react",
-    // demo: "#",
-    featured: true,
-  },
-  {
-    id: "image-gallery",
-    name: "Image Gallery",
-    tagline: "Filterable gallery with lightbox preview",
-    description:
-      "A responsive gallery with category filtering and a smooth full-screen preview for browsing image collections.",
-    tech: ["React", "CSS"],
-    github: "https://github.com/RushdiNura/image-gallery-react",
-    // demo: "#",
-    featured: false,
-  },
-  {
-    id: "quiz",
-    name: "Quiz App",
-    tagline: "Interactive quiz application",
-    description:
-      "A responsive quiz app with a lot of question and answer and a smooth full-screen preview for browsing quiz collections.",
-    tech: ["React", "CSS"],
-    github: "https://github.com/RushdiNura/Quiz-App",
-    // demo: "#",
-    featured: false,
-  },
+  // {
+  //   id: "addis-home",
+  //   name: "Addis Home",
+  //   tagline: "Real estate & housing marketplace",
+  //   description:
+  //     "A listings platform for browsing and filtering housing options, designed with a focus on clear search and a fast property browsing experience.",
+  //   tech: ["React", "CSS"],
+  //   github: "https://github.com/RushdiNura/Addis-home-react",
+  //   // demo: "#",
+  //   featured: true,
+  // },
+  // {
+  //   id: "image-gallery",
+  //   name: "Image Gallery",
+  //   tagline: "Filterable gallery with lightbox preview",
+  //   description:
+  //     "A responsive gallery with category filtering and a smooth full-screen preview for browsing image collections.",
+  //   tech: ["React", "CSS"],
+  //   github: "https://github.com/RushdiNura/image-gallery-react",
+  //   // demo: "#",
+  //   featured: false,
+  // },
+  // {
+  //   id: "quiz",
+  //   name: "Quiz App",
+  //   tagline: "Interactive quiz application",
+  //   description:
+  //     "A responsive quiz app with a lot of question and answer and a smooth full-screen preview for browsing quiz collections.",
+  //   tech: ["React", "CSS"],
+  //   github: "https://github.com/RushdiNura/Quiz-App",
+  //   // demo: "#",
+  //   featured: false,
+  // },
 
-  {
-    id: "todolist",
-    name: "Todo App",
-    tagline: "Task management with deadlines",
-    description:
-      "A task manager with due dates and completion tracking, focused on a distraction-free, keyboard-friendly interface.",
-    tech: ["React", "Node.js", "Express.js", "Mongodb"],
-    github: "https://github.com/RushdiNura/todolist-mern",
-    // demo: "#",
-    featured: false,
-  },
+  // {
+  //   id: "todolist",
+  //   name: "Todo App",
+  //   tagline: "Task management with deadlines",
+  //   description:
+  //     "A task manager with due dates and completion tracking, focused on a distraction-free, keyboard-friendly interface.",
+  //   tech: ["React", "Node.js", "Express.js", "Mongodb"],
+  //   github: "https://github.com/RushdiNura/todolist-mern",
+  //   // demo: "#",
+  //   featured: false,
+  // },
   // {
   //   id: "service-portal-system",
   //   name: "Camera App",

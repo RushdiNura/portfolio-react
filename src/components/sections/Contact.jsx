@@ -1,25 +1,26 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { FiGithub, FiLinkedin, FiMail, FiMapPin, FiSend, FiCheck } from 'react-icons/fi'
-import SectionHeading from '../ui/SectionHeading'
+import { useState } from "react";
+import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
+import { FiGithub, FiMail, FiMapPin, FiSend, FiCheck } from "react-icons/fi";
+import SectionHeading from "../ui/SectionHeading";
 
-const initialForm = { name: '', email: '', subject: '', message: '' }
+const initialForm = { name: "", email: "", subject: "", message: "" };
 
 function validate(values) {
-  const errors = {}
-  if (!values.name.trim()) errors.name = 'Enter your name.'
+  const errors = {};
+  if (!values.name.trim()) errors.name = "Enter your name.";
   if (!values.email.trim()) {
-    errors.email = 'Enter your email.'
+    errors.email = "Enter your email.";
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
-    errors.email = 'Enter a valid email address.'
+    errors.email = "Enter a valid email address.";
   }
-  if (!values.subject.trim()) errors.subject = 'Enter a subject.'
+  if (!values.subject.trim()) errors.subject = "Enter a subject.";
   if (!values.message.trim()) {
-    errors.message = 'Enter a message.'
+    errors.message = "Enter a message.";
   } else if (values.message.trim().length < 10) {
-    errors.message = 'Message should be at least 10 characters.'
+    errors.message = "Message should be at least 10 characters.";
   }
-  return errors
+  return errors;
 }
 
 const contactLinks = [
@@ -44,44 +45,73 @@ const contactLinks = [
   { icon: FiMapPin, label: "Location", value: "Ethiopia", href: null },
 ];
 
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
 export default function Contact() {
-  const [values, setValues] = useState(initialForm)
-  const [errors, setErrors] = useState({})
-  const [touched, setTouched] = useState({})
-  const [submitted, setSubmitted] = useState(false)
+  const [values, setValues] = useState(initialForm);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+  const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setValues((v) => ({ ...v, [name]: value }))
+    const { name, value } = e.target;
+    setValues((v) => ({ ...v, [name]: value }));
     if (touched[name]) {
-      setErrors(validate({ ...values, [name]: value }))
+      setErrors(validate({ ...values, [name]: value }));
     }
-  }
+  };
 
   const handleBlur = (e) => {
-    const { name } = e.target
-    setTouched((t) => ({ ...t, [name]: true }))
-    setErrors(validate(values))
-  }
+    const { name } = e.target;
+    setTouched((t) => ({ ...t, [name]: true }));
+    setErrors(validate(values));
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const validation = validate(values)
-    setErrors(validation)
-    setTouched({ name: true, email: true, subject: true, message: true })
-    if (Object.keys(validation).length === 0) {
-      // Wire this up to your form backend or email service of choice.
-      setSubmitted(true)
-      setValues(initialForm)
-      setTouched({})
-      setTimeout(() => setSubmitted(false), 4000)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const validation = validate(values);
+    setErrors(validation);
+    setTouched({ name: true, email: true, subject: true, message: true });
+    if (Object.keys(validation).length !== 0) return;
+
+    setSending(true);
+    setSendError("");
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          name: values.name,
+          email: values.email,
+          subject: values.subject,
+          message: values.message,
+        },
+        PUBLIC_KEY,
+      );
+      setSubmitted(true);
+      setValues(initialForm);
+      setTouched({});
+      setTimeout(() => setSubmitted(false), 4000);
+    } catch (err) {
+      console.error(err);
+      setSendError(
+        "Something went wrong. Please try again or email me directly.",
+      );
+    } finally {
+      setSending(false);
     }
-  }
+  };
 
   const fieldClass = (name) =>
     `w-full rounded-lg bg-ink-800/70 border px-4 py-3 text-sm text-white placeholder:text-mist-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-signal-cyan/40 ${
-      errors[name] && touched[name] ? 'border-red-400/50' : 'border-white/[0.08] focus:border-signal-cyan/50'
-    }`
+      errors[name] && touched[name]
+        ? "border-red-400/50"
+        : "border-white/[0.08] focus:border-signal-cyan/50"
+    }`;
 
   return (
     <section id="contact" className="py-28 sm:py-32">
@@ -100,11 +130,15 @@ export default function Contact() {
                   <link.icon />
                 </div>
                 <div>
-                  <p className="text-xs font-mono text-mist-500">{link.label}</p>
+                  <p className="text-xs font-mono text-mist-500">
+                    {link.label}
+                  </p>
                   {link.href ? (
                     <a
                       href={link.href}
-                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      target={
+                        link.href.startsWith("http") ? "_blank" : undefined
+                      }
                       rel="noreferrer"
                       className="text-sm text-mist-200 hover:text-signal-cyan transition-colors"
                     >
@@ -130,7 +164,10 @@ export default function Contact() {
         >
           <div className="grid sm:grid-cols-2 gap-5">
             <div>
-              <label htmlFor="name" className="block text-xs font-mono text-mist-400 mb-2">
+              <label
+                htmlFor="name"
+                className="block text-xs font-mono text-mist-400 mb-2"
+              >
                 Name
               </label>
               <input
@@ -141,14 +178,17 @@ export default function Contact() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Your name"
-                className={fieldClass('name')}
+                className={fieldClass("name")}
               />
               {errors.name && touched.name && (
                 <p className="mt-1.5 text-xs text-red-400">{errors.name}</p>
               )}
             </div>
             <div>
-              <label htmlFor="email" className="block text-xs font-mono text-mist-400 mb-2">
+              <label
+                htmlFor="email"
+                className="block text-xs font-mono text-mist-400 mb-2"
+              >
                 Email
               </label>
               <input
@@ -159,7 +199,7 @@ export default function Contact() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="you@example.com"
-                className={fieldClass('email')}
+                className={fieldClass("email")}
               />
               {errors.email && touched.email && (
                 <p className="mt-1.5 text-xs text-red-400">{errors.email}</p>
@@ -168,7 +208,10 @@ export default function Contact() {
           </div>
 
           <div>
-            <label htmlFor="subject" className="block text-xs font-mono text-mist-400 mb-2">
+            <label
+              htmlFor="subject"
+              className="block text-xs font-mono text-mist-400 mb-2"
+            >
               Subject
             </label>
             <input
@@ -179,7 +222,7 @@ export default function Contact() {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="What's this about?"
-              className={fieldClass('subject')}
+              className={fieldClass("subject")}
             />
             {errors.subject && touched.subject && (
               <p className="mt-1.5 text-xs text-red-400">{errors.subject}</p>
@@ -187,7 +230,10 @@ export default function Contact() {
           </div>
 
           <div>
-            <label htmlFor="message" className="block text-xs font-mono text-mist-400 mb-2">
+            <label
+              htmlFor="message"
+              className="block text-xs font-mono text-mist-400 mb-2"
+            >
               Message
             </label>
             <textarea
@@ -198,14 +244,17 @@ export default function Contact() {
               onChange={handleChange}
               onBlur={handleBlur}
               placeholder="Tell me about your project..."
-              className={`${fieldClass('message')} resize-none`}
+              className={`${fieldClass("message")} resize-none`}
             />
             {errors.message && touched.message && (
               <p className="mt-1.5 text-xs text-red-400">{errors.message}</p>
             )}
           </div>
 
-          <button type="submit" className="btn-primary w-full sm:w-auto justify-center">
+          {/* <button
+            type="submit"
+            className="btn-primary w-full sm:w-auto justify-center"
+          >
             {submitted ? (
               <>
                 <FiCheck /> Message sent
@@ -215,9 +264,28 @@ export default function Contact() {
                 <FiSend /> Send message
               </>
             )}
+          </button> */}
+          <button
+            type="submit"
+            disabled={sending}
+            className="btn-primary w-full sm:w-auto justify-center disabled:opacity-60"
+          >
+            {submitted ? (
+              <>
+                <FiCheck /> Message sent
+              </>
+            ) : sending ? (
+              <>Sending...</>
+            ) : (
+              <>
+                <FiSend /> Send message
+              </>
+            )}
           </button>
+
+          {sendError && <p className="text-xs text-red-400">{sendError}</p>}
         </motion.form>
       </div>
     </section>
-  )
+  );
 }
